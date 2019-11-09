@@ -9,7 +9,7 @@ const destBase = "dist/adaptr";
 const destExtension = `${isProduction ? ".min" : ""}.js`;
 
 export default {
-  input: "index.js",
+  input: "src/index.js",
   output: [
     { file: `${destBase}${destExtension}`, format: "cjs" },
     { file: `${destBase}.es${destExtension}`, format: "es" },
