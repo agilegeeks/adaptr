@@ -1,7 +1,10 @@
 {
   "name": "adaptr",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A small helper that allows the transformation of data received from a server to a more JS friendly format. It works in both direction.",
+  "bugs": {
+    "url": "https://github.com/agilegeeks/adaptr/issues"
+  },
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,8 +12,15 @@
   "keywords": [
     "adapter",
     "pattern",
-    "serializer"
+    "serializer",
+    "deserializer"
   ],
+  "files": [
+    "index.d.ts",
+    "LICENSE",
+    "README.md"
+  ],
+  "typings": "index.d.ts",
   "author": "Alexandru Gheorghita (Agile Geeks SRL-D)",
   "license": "MIT"
 }
