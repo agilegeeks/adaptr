@@ -33,8 +33,16 @@ export default class Adaptr {
             if (typeof flippedSchema[s] === 'string') {
                 result[flippedSchema[s]] = data[s];
             } else if (typeof flippedSchema[s] === 'object') {
-                if (Array.isArray(data[s]) && data[s].length > 0) {
-                    result[flippedSchema[s]._key] = data[s].map(d => flippedSchema[s].serialize(d));
+                if (Array.isArray(data[s])) {
+                    if (data[s].length === 0) {
+                        result[flippedSchema[s]._key] = [];
+                    }
+
+                    if (data[s].length > 0) {
+                        result[flippedSchema[s]._key] = data[s].map(d =>
+                            flippedSchema[s].serialize(d)
+                        );
+                    }
                 } else {
                     result[flippedSchema[s]._key] = flippedSchema[s].serialize(data[s]);
                 }
@@ -56,8 +64,16 @@ export default class Adaptr {
             if (typeof this._schema[s] === 'string') {
                 result[this._schema[s]] = data[s];
             } else if (typeof this._schema[s] === 'object') {
-                if (Array.isArray(data[s]) && data[s].length > 0) {
-                    result[this._schema[s]._key] = data[s].map(d => this._schema[s].unserialize(d));
+                if (Array.isArray(data[s])) {
+                    if (data[s].length === 0) {
+                        result[this._schema[s]._key] = [];
+                    }
+
+                    if (data[s].length > 0) {
+                        result[this._schema[s]._key] = data[s].map(d =>
+                            this._schema[s].unserialize(d)
+                        );
+                    }
                 } else {
                     result[this._schema[s]._key] = this._schema[s].unserialize(data[s]);
                 }
