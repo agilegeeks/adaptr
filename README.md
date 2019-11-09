@@ -1,6 +1,6 @@
 # Adaptr
 
-Adaptr is a small helper that allows for a smoother communication between client and backend.
+Adaptr is a small helper that allows the transformation of data received from a server to a more JS friendly format. It works in both direction..
 
 ### Usage
 
