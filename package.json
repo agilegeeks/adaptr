@@ -1,0 +1,16 @@
+{
+  "name": "adaptr",
+  "version": "1.0.0",
+  "description": "A small helper that allows for a smoother communication between client and backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "adapter",
+    "pattern",
+    "serializer"
+  ],
+  "author": "Alexandru Gheorghita (Agile Geeks SRL-D)",
+  "license": "MIT"
+}
