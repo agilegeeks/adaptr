@@ -9,7 +9,7 @@ module.exports = {
     },
     sourceType: "module"
   },
-  extends: ["eslint:recommended", "plugin:jest/recommended", "prettier"],
+  extends: ["eslint:recommended", "prettier"],
   plugins: ["json", "prettier"],
   env: {
     es6: true,
@@ -25,8 +25,6 @@ module.exports = {
     "linebreak-style": ["error", "unix"],
     quotes: ["error", "single"],
     semi: ["error", "always"],
-    "react/jsx-uses-vars": [1],
-    "react/prop-types": [1],
     camelcase: [2, { properties: "never" }],
     "no-restricted-imports": ["error", "lodash", "date-fns"]
   }

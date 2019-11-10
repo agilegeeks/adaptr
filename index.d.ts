@@ -1,5 +1,5 @@
 declare module 'adaptr' {
-    export default class Adaptr {
+    export class Adaptr {
         constructor(key: string, schema: object);
 
         serialize(data: object): object;

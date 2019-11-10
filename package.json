@@ -1,6 +1,6 @@
 {
   "name": "adaptr",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A small helper that allows the transformation of data received from a server to a more JS friendly format. It works in both direction.",
   "bugs": {
     "url": "https://github.com/agilegeeks/adaptr/issues"
@@ -15,7 +15,7 @@
     "lint:ci": "yarn lint:cmd",
     "lint:cmd": "eslint . --ext '.js,.json,.snap' --cache",
     "prebuild": "npm run clean",
-    "precommit": "flow check && lint-staged",
+    "precommit": "lint-staged",
     "prepublishOnly": "npm run build",
     "test": "jest",
     "test:ci": "jest --ci",
