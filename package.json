@@ -1,17 +1,23 @@
 {
   "name": "adaptr",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A small helper that allows the transformation of data received from a server to a more JS friendly format. It works in both direction.",
   "bugs": {
     "url": "https://github.com/agilegeeks/adaptr/issues"
   },
-  "main": "index.js",
+  "homepage": "https://github.com/agilegeeks/adaptr",
+  "repository": {
+    "url": "https://github.com/agilegeeks/adaptr.git",
+    "type": "git"
+  },
+  "main": "dist/adaptr.js",
+  "module": "dist/adaptr.es.js",
   "scripts": {
     "build": "npm run clean && run-p build:*",
     "build:development": "NODE_ENV=development rollup -c",
     "build:production": "NODE_ENV=production rollup -c",
     "clean": "rimraf dist",
-    "lint": "yarn lint:cmd --fix",
+    "lint": "yarn lint:cmd",
     "lint:ci": "yarn lint:cmd",
     "lint:cmd": "eslint . --ext '.js,.json,.snap' --cache",
     "prebuild": "npm run clean",
@@ -30,6 +36,7 @@
     "deserializer"
   ],
   "files": [
+    "dist/",
     "index.d.ts",
     "LICENSE",
     "README.md"
@@ -45,6 +52,7 @@
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^24.8.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "coveralls": "^3.0.3",
     "eslint": "^5.16.0",
     "eslint-config-prettier": "^5.0.0",
