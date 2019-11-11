@@ -1,6 +1,6 @@
 export default class Adaptr {
   constructor(key, schema) {
-    if (!schema || typeof schema !== "object") {
+    if (!key || typeof key !== "object") {
       throw new Error(`Expected a string for key, but found ${key}`);
     }
     if (!schema || typeof schema !== "object") {
