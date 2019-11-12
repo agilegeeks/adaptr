@@ -1,10 +1,10 @@
 export default class Adaptr {
   constructor(key, schema) {
-    if (!key || typeof key !== "object") {
-      throw new Error(`Expected a string for key, but found ${key}`);
+    if (!key || typeof key !== "string") {
+      throw new Error(`Expected a string for key, but found ${key} of type ${typeof key}`);
     }
     if (!schema || typeof schema !== "object") {
-      throw new Error(`Expected an object for schema, but found ${schema}`);
+      throw new Error(`Expected an object for schema, but found ${schema} of type ${typeof schema}`);
     }
 
     this._key = key;
@@ -17,9 +17,7 @@ export default class Adaptr {
       if (typeof value === "string") {
         ret[value] = key;
       } else if (typeof value === "object") {
-        const oldKey = value._key;
-        value._key = key;
-        ret[oldKey] = value;
+        ret[oldKey] = new Adaptr(key, value._schema);
       }
       return ret;
     }, {});
