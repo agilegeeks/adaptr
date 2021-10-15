@@ -13,10 +13,21 @@ function capitalize(s) {
 }
 
 function convertCamelCaseToSnakeCase(text) {
-    return text
+    let _text = text
         .split(/(?=[A-Z])/)
         .map((s) => s.toLowerCase())
         .join('_');
+
+    let _loc = _text.search(/\d+/);
+
+    if (_loc > 0) {
+        let _num = _text.substring(_loc);
+
+        _text = _text.substring(0, _loc);
+        return `${_text}_${_num}`;
+    } else {
+        return _text;
+    }
 }
 
 function convertSnakeCaseToCamelCase(text) {
@@ -69,7 +80,8 @@ function convertDataToStyle(data, style) {
 export default class Adaptr {
     constructor(key, schema) {
         if (!key || typeof key !== 'string') {
-            throw new Error(`Expected a string for key, but found ${key} of type ${typeof key}`);
+            throw new Error(`Expected a string for key, but found ${key} of type ${typeof key
+                } `);
         }
 
         if (!schema || (typeof schema !== 'object' && !Array.isArray(schema))) {
