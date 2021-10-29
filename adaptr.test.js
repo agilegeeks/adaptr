@@ -2,7 +2,7 @@
 import Adaptr from './src/index';
 
 describe('input validation', () => {
-    [42, null, undefined, {}, () => { }].forEach((input) => {
+    [42, null, undefined, {}, () => {}].forEach((input) => {
         it(`cannot create adaptor with key == ${input}`, () => {
             expect(() => {
                 new Adaptr(input);
@@ -10,7 +10,7 @@ describe('input validation', () => {
         });
     });
 
-    [42, null, undefined, () => { }].forEach((input) => {
+    [42, null, undefined, () => {}].forEach((input) => {
         it(`cannot create adaptor with schema == ${input}`, () => {
             expect(() => {
                 new Adaptr('test', input);
@@ -18,7 +18,7 @@ describe('input validation', () => {
         });
     });
 
-    [42, null, undefined, () => { }].forEach((input) => {
+    [42, null, undefined, () => {}].forEach((input) => {
         it(`cannot deserialize input that == ${input}`, () => {
             const adaptr = new Adaptr('test', {});
             expect(adaptr.unserialize.bind(null, input)).toThrow();
@@ -173,15 +173,32 @@ describe('serialization/unserialization', () => {
     it('can serialize/deserilize from camelcase key with number "admin1"', () => {
         const data = {
             admin1: 'John Doe',
-            admin22: 'Gus Doe',
+            admin22: 'Gus Doe'
         };
 
         const expectedData = {
             admin_1: 'John Doe',
-            admin_22: 'Gus Doe',
+            admin_22: 'Gus Doe'
         };
 
         const schema = new Adaptr('schema', ['camelcase', 'snakecase']);
+
+        expect(schema.serialize(expectedData)).toEqual(data);
+        expect(schema.unserialize(data)).toEqual(expectedData);
+    });
+
+    it('can serialize/deserialize even if the property of the obect is null or undefined', () => {
+        const data = {
+            full_name: 'John Doe',
+            email: null
+        };
+
+        const expectedData = {
+            fullName: 'John Doe',
+            email: null
+        };
+
+        const schema = new Adaptr('schema', ['snakecase', 'camelcase']);
 
         expect(schema.serialize(expectedData)).toEqual(data);
         expect(schema.unserialize(data)).toEqual(expectedData);

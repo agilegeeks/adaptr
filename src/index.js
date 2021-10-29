@@ -54,6 +54,10 @@ function convertDataToStyle(data, style) {
 
     const results = {};
 
+    if (data === null) {
+        return null;
+    }
+
     Object.keys(data).map((o) => {
         if (!validateObjectKeyAdheresToCodingStyle(o, style)) {
             // we leave it as is
@@ -80,8 +84,7 @@ function convertDataToStyle(data, style) {
 export default class Adaptr {
     constructor(key, schema) {
         if (!key || typeof key !== 'string') {
-            throw new Error(`Expected a string for key, but found ${key} of type ${typeof key
-                } `);
+            throw new Error(`Expected a string for key, but found ${key} of type ${typeof key} `);
         }
 
         if (!schema || (typeof schema !== 'object' && !Array.isArray(schema))) {
