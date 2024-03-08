@@ -1,8 +1,5 @@
-declare module 'Adaptr' {
-    export class Adaptr {
-        _key: string;
-        _schema: object;
-        _default: any;
+declare module 'adaptr' {
+    export default class Adaptr {
         constructor(key: string, schema: object);
 
         serialize(data: object): object;
