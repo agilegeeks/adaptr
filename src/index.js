@@ -54,7 +54,6 @@ function convertDataToStyle(data, style, exclude = []) {
     }
 
     Object.keys(data).map(o => {
-        // Apply naming style converter considering the exclusions
         let converter = convertFactory(style);
         let convertedKey = exclude.includes(o) ? o : converter(o, exclude);
 
