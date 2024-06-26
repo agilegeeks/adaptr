@@ -12,42 +12,37 @@ function capitalize(s) {
     return s[0].toUpperCase() + s.slice(1);
 }
 
-function convertCamelCaseToSnakeCase(text) {
+function convertCamelCaseToSnakeCase(text, e = []) {
+    if (e.includes(text)) {
+        return text;
+    }
+
     let _text = text
         .split(/(?=[A-Z])/)
-        .map((s) => s.toLowerCase())
+        .map(s => s.toLowerCase())
         .join('_');
 
     let _loc = _text.search(/\d+/);
-
     if (_loc > 0) {
         let _num = _text.substring(_loc);
-
         _text = _text.substring(0, _loc);
         return `${_text}_${_num}`;
     } else {
         return _text;
     }
 }
+function convertSnakeCaseToCamelCase(text, e = []) {
+    if (e.includes(text)) {
+        return text;
+    }
 
-function convertSnakeCaseToCamelCase(text) {
     return text
         .split('_')
-        .map((s, i) => (i === 0 ? s.toLowerCase() : capitalize(s)))
+        .map((s, i) => i === 0 ? s.toLowerCase() : capitalize(s))
         .join('');
 }
 
-function convertFactory(style) {
-    if (style === 'snakecase') {
-        return convertCamelCaseToSnakeCase;
-    } else if (style == 'camelcase') {
-        return convertSnakeCaseToCamelCase;
-    } else {
-        return null;
-    }
-}
-
-function convertDataToStyle(data, style) {
+function convertDataToStyle(data, style, exclude = []) {
     if (!VARIABLE_NAMIG_STYLES.includes(style)) {
         return null;
     }
@@ -58,23 +53,21 @@ function convertDataToStyle(data, style) {
         return null;
     }
 
-    Object.keys(data).map((o) => {
-        if (!validateObjectKeyAdheresToCodingStyle(o, style)) {
-            // we leave it as is
-            results[o] = data[o];
-        }
+    Object.keys(data).map(o => {
+        let converter = convertFactory(style);
+        let convertedKey = exclude.includes(o) ? o : converter(o, exclude);
 
         if (typeof data[o] === 'object') {
             if (Array.isArray(data[o])) {
-                results[convertFactory(style)(o)] = [];
-                data[o].map((d) => {
-                    results[convertFactory(style)(o)].push(convertDataToStyle(d, style));
+                results[convertedKey] = [];
+                data[o].map(d => {
+                    results[convertedKey].push(convertDataToStyle(d, style, exclude));
                 });
             } else {
-                results[convertFactory(style)(o)] = convertDataToStyle(data[o], style);
+                results[convertedKey] = convertDataToStyle(data[o], style, exclude);
             }
         } else {
-            results[convertFactory(style)(o)] = data[o];
+            results[convertedKey] = data[o];
         }
     });
 
