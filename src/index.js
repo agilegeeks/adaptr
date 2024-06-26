@@ -19,7 +19,7 @@ function convertCamelCaseToSnakeCase(text, e = []) {
 
     let _text = text
         .split(/(?=[A-Z])/)
-        .map(s => s.toLowerCase())
+        .map((s) => s.toLowerCase())
         .join('_');
 
     let _loc = _text.search(/\d+/);
@@ -38,8 +38,18 @@ function convertSnakeCaseToCamelCase(text, e = []) {
 
     return text
         .split('_')
-        .map((s, i) => i === 0 ? s.toLowerCase() : capitalize(s))
+        .map((s, i) => (i === 0 ? s.toLowerCase() : capitalize(s)))
         .join('');
+}
+
+function convertFactory(style) {
+    if (style === 'snakecase') {
+        return convertCamelCaseToSnakeCase;
+    } else if (style == 'camelcase') {
+        return convertSnakeCaseToCamelCase;
+    } else {
+        return null;
+    }
 }
 
 function convertDataToStyle(data, style, exclude = []) {
@@ -53,14 +63,19 @@ function convertDataToStyle(data, style, exclude = []) {
         return null;
     }
 
-    Object.keys(data).map(o => {
+    Object.keys(data).map((o) => {
+        if (!validateObjectKeyAdheresToCodingStyle(o, style)) {
+            // we leave it as is
+            results[o] = data[o];
+        }
+
         let converter = convertFactory(style);
         let convertedKey = exclude.includes(o) ? o : converter(o, exclude);
 
         if (typeof data[o] === 'object') {
             if (Array.isArray(data[o])) {
                 results[convertedKey] = [];
-                data[o].map(d => {
+                data[o].map((d) => {
                     results[convertedKey].push(convertDataToStyle(d, style, exclude));
                 });
             } else {
