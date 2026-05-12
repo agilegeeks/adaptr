@@ -1,117 +1,42 @@
-# Adaptr
+# ⚠️ This package has moved
 
-Adaptr is a small helper that allows the transformation of data received from a server to a more JS friendly format. It works in both direction..
+`adaptr` has been renamed and moved to:
 
-### Usage
+## `@reve/contract-adapter`
 
-```js
-import Adaptr from 'adaptr';
+New repository:
 
-// user object received from server
-const user = {
-    'id': 133,
-    'is_logged_in': true
-};
+https://github.com/Reve/contract-adapter
 
-// we define an adapter with the desired schema
-// on the left it's the expected server format
-// on the right it's the desired local format
-const userAdapter = new Adaptr('user', {
-    'id': 'userId',
-    'is_logged_in': 'isLoggedIn'
-});
+New npm package:
 
-const localFormat = userAdapter.unserialize(user);
-const serverFormat = userAdapter.serialize(localFormat);
-```
-**Output**
-```json
-"localFormat": {
-    "user": {
-       "userId": 133,
-       "isLoggedIn": true
-    }
-}
+```bash
+npm install @reve/contract-adapter
 
-"serverFormat": {
-    "user": {
-       "id": 133,
-       "is_logged_in": true
-    }
-}
-```
+# Why the rename?
 
-### Nested objects
+The original adaptr package was created to solve a specific API-boundary problem: translating backend JSON contracts into frontend-friendly models and translating them back when sending data to the server.
 
-```js
-import Adaptr from 'adaptr';
+The new name, contract-adapter, better describes the package purpose: bidirectional DTO and API contract adaptation.
 
-// user object received from server
-const ;
+# Migration
 
-const comment = {
-    'comment_id': 23,
-    'text': 'this is a comment',
-    'user'= {
-        'id': 133,
-        'is_logged_in': true
-    }
-};
+Replace the package:
 
-// we define an adapter with the desired schema
-// on the left it's the expected server format
-// on the right it's the desired local format
-const userAdapter = new Adaptr('user', {
-    'id': 'userId',
-    'is_logged_in': 'isLoggedIn'
-});
+npm uninstall adaptr
+npm install @reve/contract-adapter
 
-const commentAdapter = new Adaptr('comment', {
-    'comment_id': 'id',
-    'text': 'text',
-    'user': userAdapter
-});
+Update imports:
 
-const localFormat = commentAdapter.unserialize(user);
-const serverFormat = commentAdapter.serialize(localFormat);
-```
-**Output**
-```json
-"localFormat": {
-    "comment": {
-        "id": 23,
-        "text": "this is a comment",
-        "user": {
-           "userId": 133,
-           "isLoggedIn": true
-        }
-    }
-}
+- import Adapter from 'adaptr'
++ import Adapter from '@reve/contract-adapter'
 
-"serverFormat": {
-    "comment": {
-        "comment_id": 23,
-        "text": "this is a comment",
-        "user": {
-           "id": 133,
-           "is_logged_in": true
-        }
-    }
-}
-```
+The existing API remains compatible unless otherwise noted in the new package changelog.
 
-### Installation
+# Maintenance status
 
-Adaptr is dependencie free.
-```sh
-$ npm install adaptr
-```
+This repository is now in maintenance mode.
 
-License
-----
+No new features will be added here. Critical fixes may be accepted for a limited period, but all active development has moved to:
 
-MIT
-
-
-**Free Software, Hell Yeah!**
-
+https://github.com/Reve/contract-adapter
